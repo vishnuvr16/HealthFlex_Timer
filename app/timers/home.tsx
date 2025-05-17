@@ -28,9 +28,11 @@ export default function HomeScreen(): React.ReactElement {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [categories, setCategories] = useState<string[]>([])
 
-  // Extract unique categories from timers
+  // Extract unique categories from active timers
   useEffect(() => {
-    const uniqueCategories = ["all", ...new Set(state.timers.map((timer) => timer.category))]
+    // Filter active timers inside the effect
+    const activeTimers = state.timers.filter(timer => timer.status !== "completed")
+    const uniqueCategories = ["all", ...new Set(activeTimers.map((timer) => timer.category))]
     setCategories(uniqueCategories)
 
     // Fade in animation
@@ -72,9 +74,10 @@ export default function HomeScreen(): React.ReactElement {
     return () => clearInterval(interval)
   }, [state.timers, dispatch])
 
-  // Filter timers based on selected category
-  const filteredTimers =
-    selectedCategory === "all" ? state.timers : state.timers.filter((timer) => timer.category === selectedCategory)
+  // Filter active timers based on selected category
+  const filteredTimers = state.timers
+    .filter(timer => timer.status !== "completed") // Filter out completed timers
+    .filter(timer => selectedCategory === "all" || timer.category === selectedCategory)
 
   const onRefresh = useCallback((): void => {
     setRefreshing(true)
@@ -89,11 +92,12 @@ export default function HomeScreen(): React.ReactElement {
     if (filteredTimers.length === 0) return
 
     if (selectedCategory === "all") {
-      state.timers.forEach((timer) => {
-        if (timer.status !== "completed") {
+      // Start all non-completed timers
+      state.timers
+        .filter(timer => timer.status !== "completed")
+        .forEach((timer) => {
           dispatch({ type: "START_TIMER", payload: timer.id })
-        }
-      })
+        })
     } else {
       dispatch({ type: "START_CATEGORY_TIMERS", payload: selectedCategory })
     }
@@ -104,11 +108,12 @@ export default function HomeScreen(): React.ReactElement {
     if (filteredTimers.length === 0) return
 
     if (selectedCategory === "all") {
-      state.timers.forEach((timer) => {
-        if (timer.status === "running") {
+      // Pause all running timers that aren't completed
+      state.timers
+        .filter(timer => timer.status === "running")
+        .forEach((timer) => {
           dispatch({ type: "PAUSE_TIMER", payload: timer.id })
-        }
-      })
+        })
     } else {
       dispatch({ type: "PAUSE_CATEGORY_TIMERS", payload: selectedCategory })
     }
@@ -119,9 +124,12 @@ export default function HomeScreen(): React.ReactElement {
     if (filteredTimers.length === 0) return
 
     if (selectedCategory === "all") {
-      state.timers.forEach((timer) => {
-        dispatch({ type: "RESET_TIMER", payload: timer.id })
-      })
+      // Reset all non-completed timers
+      state.timers
+        .filter(timer => timer.status !== "completed")
+        .forEach((timer) => {
+          dispatch({ type: "RESET_TIMER", payload: timer.id })
+        })
     } else {
       dispatch({ type: "RESET_CATEGORY_TIMERS", payload: selectedCategory })
     }
@@ -171,12 +179,12 @@ export default function HomeScreen(): React.ReactElement {
       />
 
       {/* Timer list */}
-      {state.timers.length === 0 ? (
-        <EmptyState icon="timer-outline" message="No timers yet. Tap the + button to create one!" theme={theme} />
+      {state.timers.filter(timer => timer.status !== "completed").length === 0 ? (
+        <EmptyState icon="timer-outline" message="No active timers. Tap the + button to create one!" theme={theme} />
       ) : filteredTimers.length === 0 ? (
         <EmptyState
           icon="filter-outline"
-          message="No timers in this category. Try selecting a different category or create a new timer."
+          message="No active timers in this category. Try selecting a different category or create a new timer."
           theme={theme}
         />
       ) : (
