@@ -12,6 +12,13 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "app/(tabs)/AddTimerScreen.jsx",
+    "context/TimerContext.tsx",
+    "app/timers/AddTimerScree.sx",
+    "app/timers/HistoryScreen.jsx",
+    "app/timers/HomeScreen.jsx",
+    "context/ThemeContext.tjsx",
+    "nativewind-env.d.ts"
   ]
 }
