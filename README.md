@@ -1,50 +1,60 @@
-# Welcome to your Expo app 👋
+# ⏱️ HealthFlex Timer App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A lightweight, offline-first timer management app built with **React Native + Expo**, designed for productivity and tracking time efficiently.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Setup Instructions
 
-   ```bash
-   npm install
-   ```
+Follow the steps below to get the app running on your device:
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+### 1. Clone the Repository
 ```bash
-npm run reset-project
+git clone https://github.com/vishnuvr16/HealthFlex_Timer.git
+cd HealthFlex_Timer
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-## Learn more
+### 3. Start the Expo Development Server
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 4. Run on Your Mobile Device
+- Install the Expo Go app:
+  - Android – Play Store
+  - iOS – App Store
+- Scan the QR code displayed in your terminal or browser using Expo Go.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+✅ You're now ready to use the app on your phone!
 
-## Join the community
+## 📦 Tech Stack
+- React Native (via Expo)
+- TypeScript
+- React Navigation
+- AsyncStorage for local persistence
+- Custom hooks for theme and timer logic
 
-Join our community of developers creating universal apps.
+## 🎯 Features
+- Start, pause, reset individual timers
+- Run multiple timers simultaneously
+- Switch between light and dark themes
+- Filter and track completed timer history
+- Export history as JSON (via native share)
+- Fully offline — no backend required
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🧠 Assumptions Made During Development
+- The app should work offline without requiring a backend
+- Local storage is sufficient for persisting timer data
+- Core timer functionality (start, pause, reset) is most important
+- Bulk actions save time for managing multiple timers
+- History tracking provides value for analyzing completed timers
+- Theme switching accommodates different user preferences
+- Users need to manage multiple timers simultaneously
+
+## 🧑‍💻 Author
+Developed by Vishnu Vardhan Reddy
